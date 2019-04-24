@@ -51,7 +51,7 @@ GZIP_SUPPORT = 1
 # install and uncomment
 # the LZ4_SUPPORT line below.
 #
-#LZ4_SUPPORT = 1
+LZ4_SUPPORT = 1
 
 
 ########### Building LZMA support #############
@@ -173,7 +173,8 @@ ifeq ($(LZ4_SUPPORT),1)
 CFLAGS += -DLZ4_SUPPORT
 MKSQUASHFS_OBJS += lz4_wrapper.o
 UNSQUASHFS_OBJS += lz4_wrapper.o
-LIBS += -llz4
+INCLUDEDIR += -I../../lz4-1.8.3/lib
+LIBS += ../../lz4-1.8.3/lib/liblz4.a
 COMPRESSORS += lz4
 endif
 
