@@ -12,6 +12,7 @@ for img in $(find imgs -type f -name $1\*img); do
 	[ "${img/squashfs/x}" == $img ] || fs_type="squashfs"
 	[ "${img/erofs/x}" == $img ] || fs_type="erofs"
 	[ "${img/ext4/x}" == $img ] || fs_type="ext4"
+	[ "${img/f2fs/x}" == $img ] || fs_type="f2fs"
 
 	echo benchmarking $img with $fs_type
 	dd if=$img of=$2 bs=1048576 > /dev/null 2>&1
@@ -21,6 +22,7 @@ for img in $(find imgs -type f -name $1\*img); do
 	[ $fs_type == "erofs" ] && mount -t erofs $2 mntdir
 	[ $fs_type == "squashfs" ] && mount -t squashfs $2 mntdir
 	[ $fs_type == "ext4" ] && mount -t ext4 -o ro $2 mntdir
+	[ $fs_type == "f2fs" ] && mount -t f2fs -o ro $2 mntdir
 
 	for i in $(find mntdir -type f); do
 		echo $i
